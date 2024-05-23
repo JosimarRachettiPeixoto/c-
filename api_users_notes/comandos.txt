@@ -1,0 +1,35 @@
+
+comandos para testar a api, necessario compilar e criar redis.
+
+compilar:
+    g++ -o api api.cpp -lhiredis -lredis++ -pthread
+
+create redis:
+    docker run -p 6379:6379 redis
+
+create user:
+    curl -X POST http://0.0.0.0:3002/createuser -H 'Content-Tyication/json' -d '{"user":"josimar","password":"teste"}'
+
+delete user:
+    curl -X DELETE http://0.0.0.0:3002/deleteuser/user/<string>/password/<string>
+    curl -X DELETE http://0.0.0.0:3002/deleteuser/user/josimar/password/teste
+
+create note:
+    curl -X POST http://0.0.0.0:3002/createnote/user/<string>/password/<string> -H 'Content-Tyication/json' -d '{"note":"estou testando meu app"}'
+    curl -X POST http://0.0.0.0:3002/createnote/user/josimar/password/teste -H 'Content-Tyication/json' -d '{"note":"estou testando meu app"}'
+
+get note:
+    curl -X GET http://0.0.0.0:3002/getnotes/user/<string>/password/<string> -H 'Content-Tyication/json'
+    curl -X GET http://0.0.0.0:3002/getnotes/user/josimar/password/teste -H 'Content-Tyication/json'
+
+update note:
+    curl -X PUT http://0.0.0.0:3002/updatenote/user/<string>/password/<string>/index/<int> -H 'Content-Tyication/json' -d '{"new_note":"estou testando meu app"}'
+    curl -X PUT http://0.0.0.0:3002/updatenote/user/josimar/password/teste/index/0 -H 'Content-Tyication/json' -d '{"new_note":"estou testando meu app"}'
+
+delete note:
+    curl -X DELETE http://0.0.0.0:3002/deletenote/user/<string>/password/<string>/index/<int> -H 'Content-Tyication/json' -d '{"index": 0}'
+    curl -X DELETE http://0.0.0.0:3002/deletenote/user/josimar/password/teste/index/0 -H 'Content-Tyication/json' -d '{"index": 0}'
+
+
+
+
